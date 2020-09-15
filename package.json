@@ -1,7 +1,7 @@
 {
-  "name": "voxel",
+  "name": "adventure",
   "version": "1.0.0",
-  "description": "",
+  "description": "electron rpg",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
