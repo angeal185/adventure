@@ -20,7 +20,7 @@ opts = Object.assign(config.defaults, {
 
 global.game = createGame(opts);
 global.xframe = map;
-global.npc = [];
+window.npc = [];
 
 const {snow, stars} = require('./app/modules/sky');
 
@@ -299,7 +299,7 @@ document.body.append(
 game.appendTo(container);
 
 for (let i = 0; i < lvl.characters.length; i++) {
-  utils.create_npc(game, lvl.characters[i])
+  utils.create_npc(lvl.characters[i])
 }
 
 let avatar = utils.avatar(game, opts)

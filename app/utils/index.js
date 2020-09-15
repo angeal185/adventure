@@ -1,4 +1,5 @@
-const player = require('../modules/player');
+const player = require('../modules/player'),
+skin = require('../modules/minecraft-skin');
 
 const utils = {
   throttle(fn, delay){
@@ -97,14 +98,17 @@ const utils = {
       velocity: { x: 0, y: 0, z: 0 } // initial velocity
     })
   },
-  create_npc(game, obj){
-    console.log(obj)
-    let createNewPlayer = utils.add_npc(game, obj.rt),
+  create_npc(obj){
+
+    let createNewPlayer = utils.add_npc(obj.rt),
     newPlayer = createNewPlayer(obj.skin);
     newPlayer.yaw.position.set(...obj.position);
-    npc.push(newPlayer)
+    newPlayer.id = obj.id;
+    npc.push(newPlayer);
+    console.log(npc)
+
   },
-  add_npc(game, rt) {
+  add_npc(rt) {
       var mountPoint;
 
       return function (img, skinOpts) {
