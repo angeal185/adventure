@@ -1,0 +1,14 @@
+[
+  "dirt",
+  ["grass_block_top", "dirt", "grass_block_side"],
+  "bedrock",
+  "birch_door_bottom",
+  "glass",
+  "stone_bricks",
+  "birch_door_top",
+  "birch_planks",
+  "beacon",
+  "sand",
+  "portal_overlay",
+  "water_overlay"
+]

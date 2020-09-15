@@ -1,0 +1,16 @@
+{
+  "name": "voxel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "interact": "0.0.3",
+    "lowdb": "^1.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

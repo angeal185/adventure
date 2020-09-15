@@ -1,0 +1,17 @@
+{
+  "game": {
+    "lvl": 0,
+    "name": ""
+  },
+  "user": {
+    "lvl": 0,
+    "exp": 0,
+    "alignment": 50,
+    "reputation": 0,
+    "gold": 0,
+    "inventory": [],
+    "portal": [],
+    "stones": []
+  },
+  "created": 1599831169816
+}
