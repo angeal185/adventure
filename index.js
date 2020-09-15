@@ -10,19 +10,19 @@ x = require('./app/utils/xscript'),
 tpl = require('./app/views/tpl'),
 map = require('./app/data/map'),
 config = require('./app/data/config'),
-utils = require('./app/utils'),
-lvl0_npc = require('./app/data/lvl_0/npc');
+utils = require('./app/utils');
 
-let opts = Object.assign(config.defaults, {
+let lvl = localStorage.getItem('lvl') || 0;
+lvl = require('./app/data/lvl_'+ lvl),
+opts = Object.assign(config.defaults, {
   generate: utils.generate
 });
 
 global.game = createGame(opts);
+global.xframe = map;
+global.npc = [];
 
 const {snow, stars} = require('./app/modules/sky');
-
-
-window.xframe = map;
 
 let minmap = x('div', {id: 'minmap'}),
 contact = x('div', {id: 'contact'},
@@ -134,10 +134,10 @@ function defaultSetup(game, avatar) {
       //console.log(pos)
       let isPortal = false;
 
-      for (let i = 0; i < lvl0_npc.characters.length; i++) {
-        for (let j = 0; j < lvl0_npc.characters[i].action.length; j++) {
-          if(pos === JSON.stringify(lvl0_npc.characters[i].action[j])){
-            let char = lvl0_npc.characters[i];
+      for (let i = 0; i < lvl.characters.length; i++) {
+        for (let j = 0; j < lvl.characters[i].action.length; j++) {
+          if(pos === JSON.stringify(lvl.characters[i].action[j])){
+            let char = lvl.characters[i];
             window.dispatchEvent(new CustomEvent('contact', {
               detail: {
                 name: char.name,
@@ -161,16 +161,16 @@ function defaultSetup(game, avatar) {
 
       if(!isPortal){
 
-        for (let i = 0; i < lvl0_npc.portals.length; i++) {
-          if(JSON.stringify(lvl0_npc.portals[i][0]) === pos){
-            pos = Array.from(lvl0_npc.portals[i][1]);
+        for (let i = 0; i < lvl.portals.length; i++) {
+          if(JSON.stringify(lvl.portals[i][0]) === pos){
+            pos = Array.from(lvl.portals[i][1]);
             pos[1]++
             avatar.position.set(...pos);
             isPortal = true;
             break;
           }
-          if(JSON.stringify(lvl0_npc.portals[i][1]) === pos){
-            pos = Array.from(lvl0_npc.portals[i][0]);
+          if(JSON.stringify(lvl.portals[i][1]) === pos){
+            pos = Array.from(lvl.portals[i][0]);
             pos[1]++
             avatar.position.set(...pos);
             isPortal = true;
@@ -180,14 +180,14 @@ function defaultSetup(game, avatar) {
       }
 
       if(!isPortal){
-        for (let i = 0; i < lvl0_npc.doors.length; i++) {
-          if(JSON.stringify(lvl0_npc.doors[i][0]) === pos){
-            let item = lvl0_npc.doors[i][1];
+        for (let i = 0; i < lvl.doors.length; i++) {
+          if(JSON.stringify(lvl.doors[i][0]) === pos){
+            let item = lvl.doors[i][1];
             game.setBlock(item, 0);
             item[1]++;
             game.setBlock(item, 0);
             utils.doorBlock(game, item)
-            lvl0_npc.doors.splice(i,1)
+            lvl.doors.splice(i,1)
             break;
           }
         }
@@ -298,8 +298,8 @@ document.body.append(
 
 game.appendTo(container);
 
-for (let i = 0; i < lvl0_npc.characters.length; i++) {
-  utils.create_npc(game, lvl0_npc.characters[i])
+for (let i = 0; i < lvl.characters.length; i++) {
+  utils.create_npc(game, lvl.characters[i])
 }
 
 let avatar = utils.avatar(game, opts)
