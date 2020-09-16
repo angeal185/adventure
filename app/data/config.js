@@ -10,6 +10,7 @@ module.exports = {
     playerHeight: 1.62,
     chunkDistance: 2,
     removeDistance: 3,
+    tickFPS: 16,
     meshType: 'surfaceMesh',
     generateChunks: true,
     texturePath: 'app/img/textures/',

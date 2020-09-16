@@ -77,7 +77,7 @@ function Game(opts) {
     [-Infinity, -Infinity, -Infinity]
   )
 
-  this.timer = this.initializeTimer((opts.tickFPS || 16))
+  this.timer = this.initializeTimer(opts.tickFPS)
   this.paused = false
 
   this.spatial = new SpatialEventEmitter
@@ -417,15 +417,13 @@ Game.prototype.addLights = function(scene) {
 // # Chunk related methods
 
 Game.prototype.configureChunkLoading = function(opts) {
-  var self = this
-  if (!opts.generateChunks) return
-  if (!opts.generate) {
-    this.generate = function(x,y,z) {
-      return x*x+y*y+z*z <= 15*15 ? 1 : 0 // sphere world
-    }
-  } else {
-    this.generate = opts.generate
+  let self = this;
+  if (!opts.generateChunks){
+    return;
   }
+
+  this.generate = opts.generate;
+
   if (opts.generateVoxelChunk) {
     this.generateVoxelChunk = opts.generateVoxelChunk
   } else {

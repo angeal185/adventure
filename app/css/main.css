@@ -6,6 +6,7 @@ body {
   background-color: #f0f0f0;
   margin: 0px;
   overflow: hidden;
+  display: none;
 }
 #container {
   -moz-user-select: none;
@@ -62,6 +63,20 @@ body {
   left: 0;
 }
 
+#counter{
+  position: fixed;
+  display: none;
+  width: 5rem;
+  text-align: center;
+  background: rgb(0 0 0 / 66%);
+  box-shadow: 0 0 4px rgb(0 0 0 / 66%);
+  bottom: 0;
+  color: #b5b5b5;
+  padding: .5rem;
+  border-top-right-radius: 4px;
+  right: 0;
+}
+
 #contact{
   position: fixed;
   width: 9rem;
@@ -88,7 +103,7 @@ body {
 }
 
 .show{
-  display: block;
+  display: block!important;
 }
 
 .modal{

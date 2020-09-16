@@ -7,6 +7,7 @@ process.browser = true;
 global.user = {
   selectedBlock: 1
 }
+global.isDead = false;
 
 db.defaults({
   game:{

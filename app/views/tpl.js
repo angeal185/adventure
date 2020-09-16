@@ -1,4 +1,5 @@
-const x = require('../utils/xscript')
+const x = require('../utils/xscript'),
+utils = require('../utils')
 
 const tpl = {
   dialogue(){
@@ -14,6 +15,7 @@ const tpl = {
               class: 'btn btn-outline-secondary btn-sm',
               onclick(){
                 mdl.classList.remove('show');
+                utils.focus();
                 setTimeout(function(){
                   head_txt.textContent = '';
                   body_txt.innerHTML = '';
@@ -56,6 +58,7 @@ const tpl = {
               class: 'btn btn-outline-secondary btn-sm',
               onclick(){
                 mdl.classList.remove('show');
+                utils.focus();
                 setTimeout(function(){
                   body.innerHTML = '';
                 },500)

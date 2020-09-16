@@ -1,13 +1,15 @@
-var tic = require('./tic');
-var createAtlas = require('./atlaspack');
+const tic = require('./tic'),
+createAtlas = require('./atlaspack');
 
 function Texture(opts) {
-  if (!(this instanceof Texture)) return new Texture(opts || {});
+  if (!(this instanceof Texture)){
+    return new Texture(opts || {});
+  }
   var self = this;
   this.game = opts.game; delete opts.game;
   this.THREE = this.game.THREE;
   this.materials = [];
-  this.texturePath = opts.texturePath || '/textures/';
+  this.texturePath = opts.texturePath;
   this.loading = 0;
 
   var useFlatColors = opts.materialFlatColor === true;

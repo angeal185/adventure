@@ -1,5 +1,4 @@
-const voxel = require('./voxel'),
-ChunkMatrix = require('./lib/chunk_matrix'),
+const ChunkMatrix = require('./lib/chunk_matrix'),
 indexer = require('./lib/indexer');
 
 function Group(game) {
