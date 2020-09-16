@@ -1,6 +1,5 @@
-var inherits = require('./inherits')
-var events = require('events')
-const utils = require('../utils')
+const events = require('events'),
+utils = require('../utils');
 
 function Highlighter(game, opts) {
   if (!(this instanceof Highlighter)) return new Highlighter(game, opts)
@@ -58,7 +57,7 @@ function Highlighter(game, opts) {
   this.selectEnd
 }
 
-inherits(Highlighter, events.EventEmitter)
+utils.inherits(Highlighter, events.EventEmitter)
 
 Highlighter.prototype.highlight = function () {
 

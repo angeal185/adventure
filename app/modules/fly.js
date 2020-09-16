@@ -1,5 +1,4 @@
-const ever = require('./ever'),
-vkey = require('./vkey'),
+const vkey = require('./vkey'),
 events = require('events');
 
 let game;
@@ -19,9 +18,8 @@ Fly.prototype = {
     var counter = 0
     var spaceUpAfterFirstDown = false
     var first = Date.now()
-    ever(el)
-      .on('keydown', onKeyDown)
-      .on('keyup', onKeyUp)
+    el.addEventListener('keydown', onKeyDown);
+    el.addEventListener('keyup', onKeyUp);
 
     function onKeyDown(ev) {
       var key = vkey[ev.keyCode] || ev.char

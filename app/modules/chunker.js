@@ -1,5 +1,5 @@
-var events = require('events')
-var inherits = require('./inherits')
+const events = require('events'),
+utils = require('../utils');
 
 module.exports = function(opts) {
   return new Chunker(opts)
@@ -22,7 +22,7 @@ function Chunker(opts) {
   this.chunkBits = bits - 1;
 }
 
-inherits(Chunker, events.EventEmitter)
+utils.inherits(Chunker, events.EventEmitter)
 
 Chunker.prototype.nearbyChunks = function(position, distance) {
   var current = this.chunkAtPosition(position)

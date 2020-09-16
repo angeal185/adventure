@@ -1,5 +1,6 @@
 const materials = require('./materials'),
-sky = require('./sky');
+sky = require('./sky'),
+utils = require('../utils');
 
 module.exports = {
   sky: sky,

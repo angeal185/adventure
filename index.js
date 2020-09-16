@@ -1,10 +1,8 @@
 require('./pre')
 
-const
-createGame = require('./app/modules/engine'),
+const createGame = require('./app/modules/engine'),
 highlight = require('./app/modules/highlight'),
 fly = require('./app/modules/fly'),
-registry = require('./app/modules/registry'),
 x = require('./app/utils/xscript'),
 tpl = require('./app/views/tpl'),
 map = require('./app/data/map'),

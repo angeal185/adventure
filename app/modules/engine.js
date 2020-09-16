@@ -7,11 +7,9 @@ voxelView = require('./view'),
 THREE = require('./three'),
 Stats = require('./lib/stats'),
 Detector = require('./lib/detector'),
-inherits = require('./inherits'),
 path = require('path'),
 EventEmitter = require('events').EventEmitter,
 interact = require('interact'),
-requestAnimationFrame = require('./raf'),
 collisions = require('./collide-3d-tilemap'),
 aabb = require('./aabb-3d'),
 glMatrix = require('./lib/gl-matrix'),
@@ -20,8 +18,8 @@ SpatialEventEmitter = require('./spatial-events'),
 regionChange = require('./region-change'),
 kb = require('./kb-controls'),
 physical = require('./physical'),
-pin = require('./pin-it'),
-tic = require('./tic');
+tic = require('./tic'),
+utils = require('../utils');
 
 function Game(opts) {
 
@@ -121,7 +119,7 @@ function Game(opts) {
   this.initializeControls(opts)
 }
 
-inherits(Game, EventEmitter)
+utils.inherits(Game, EventEmitter)
 
 // # External API
 
@@ -579,7 +577,6 @@ Game.prototype.addVoxelMarker = function(x, y, z, color) {
   return this.addAABBMarker(bbox, color);
 }
 
-Game.prototype.pin = pin;
 
 // # Misc internal methods
 
@@ -687,7 +684,7 @@ Game.prototype.initializeRendering = function(opts) {
   window.addEventListener('resize', self.onWindowResize.bind(self), false)
 
 
-  requestAnimationFrame(window).on('data', function(dt) {
+  utils.raf(window).on('data', function(dt) {
     self.emit('prerender', dt);
     self.render(dt);
     self.emit('postrender', dt);

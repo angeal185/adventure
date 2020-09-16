@@ -136,7 +136,9 @@ Stars.prototype.tick = function() {
   let self = this,
   target = self.game.controls.target();
   self.particles.forEach(function(particle) {
-    if (target == null) return;
+    if (target == null){
+      return;
+    }
     particle.position.copy(target.position);
 
     let bounds = particle.geometry.boundingBox,

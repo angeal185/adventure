@@ -86,6 +86,48 @@ module.exports = {
     position: [25, 2, -1],
     action: [[25, 1, -1], [25, 1, -2], [24, 1, -1],[24,1,-2]],
     rt: 180
+  },{
+    id: 7,
+    idx: 0,
+    name: 'villager',
+    skin: './app/img/skin/villager_01.png',
+    speech(){
+      return utils.rndArr(dialogue.greetings);
+    },
+    dialogue: [{
+      body: 'id:7'
+    }],
+    position: [14, 2, -1],
+    action: [[14, 1, -1], [14, 1, -2], [13, 1, -1],[13,1,-2]],
+    rt: -90
+  },{
+    id: 8,
+    idx: 0,
+    name: 'villager',
+    skin: './app/img/skin/villager_01.png',
+    speech(){
+      return utils.rndArr(dialogue.greetings);
+    },
+    dialogue: [{
+      body: 'id:8'
+    }],
+    position: [18, 2, -1],
+    action: [[18, 1, -1], [18, 1, -2], [17, 1, -1],[17,1,-2]],
+    rt: 90
+  },{
+    id: 9,
+    idx: 0,
+    name: 'villager',
+    skin: './app/img/skin/villager_01.png',
+    speech(){
+      return utils.rndArr(dialogue.greetings);
+    },
+    dialogue: [{
+      body: 'id:9'
+    }],
+    position: [9, 2, 9],
+    action: [[9, 1, 8], [9, 1, 9], [8, 1, 8],[8,1,9]],
+    rt: null
   }],
   portals: [
     [[58,1,-18],[58,-4,-18], ['slums', 'ghetto']]

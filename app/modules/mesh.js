@@ -12,7 +12,7 @@ function Mesh(data, mesher, scaleFactor, three) {
   var geometry = this.geometry = new this.THREE.Geometry()
   this.scale = scaleFactor || new this.THREE.Vector3(10, 10, 10)
 
-  var result = mesher( data.voxels, data.dims )
+  var result = mesher(data.voxels, data.dims)
   this.meshed = result
 
   geometry.vertices.length = 0
@@ -46,17 +46,17 @@ function Mesh(data, mesher, scaleFactor, three) {
   for (var i = 0; i < geometry.faces.length; ++i) {
     var face = geometry.faces[i]
     // facing up
-    if (face.normal.y === 1)       face.vertexColors = [light, light, light, light]
+    if (face.normal.y === 1) face.vertexColors = [light, light, light, light]
     // facing down
     else if (face.normal.y === -1) face.vertexColors = [shadow, shadow, shadow, shadow]
     // facing right
-    else if (face.normal.x === 1)  face.vertexColors = [shadow, light, light, shadow]
+    else if (face.normal.x === 1) face.vertexColors = [shadow, light, light, shadow]
     // facing left
     else if (face.normal.x === -1) face.vertexColors = [shadow, shadow, light, light]
     // facing backward
-    else if (face.normal.z === 1)  face.vertexColors = [shadow, shadow, light, light]
+    else if (face.normal.z === 1) face.vertexColors = [shadow, shadow, light, light]
     // facing forward
-    else                           face.vertexColors = [shadow, light, light, shadow]
+    else face.vertexColors = [shadow, light, light, shadow]
   }
 
   geometry.verticesNeedUpdate = true
@@ -70,8 +70,8 @@ function Mesh(data, mesher, scaleFactor, three) {
 
 Mesh.prototype.createWireMesh = function(hexColor) {
   var wireMaterial = new this.THREE.MeshBasicMaterial({
-    color : hexColor || 0xffffff,
-    wireframe : true
+    color: hexColor || 0xffffff,
+    wireframe: true
   })
   wireMesh = new THREE.Mesh(this.geometry, wireMaterial)
   wireMesh.scale = this.scale
@@ -82,7 +82,7 @@ Mesh.prototype.createWireMesh = function(hexColor) {
 
 Mesh.prototype.createSurfaceMesh = function(material) {
   material = material || new this.THREE.MeshNormalMaterial()
-  var surfaceMesh  = new this.THREE.Mesh( this.geometry, material )
+  var surfaceMesh = new this.THREE.Mesh(this.geometry, material)
   surfaceMesh.scale = this.scale
   surfaceMesh.doubleSided = false
   this.surfaceMesh = surfaceMesh
@@ -90,8 +90,8 @@ Mesh.prototype.createSurfaceMesh = function(material) {
 }
 
 Mesh.prototype.addToScene = function(scene) {
-  if (this.wireMesh) scene.add( this.wireMesh )
-  if (this.surfaceMesh) scene.add( this.surfaceMesh )
+  if (this.wireMesh) scene.add(this.wireMesh)
+  if (this.surfaceMesh) scene.add(this.surfaceMesh)
 }
 
 Mesh.prototype.setPosition = function(x, y, z) {
@@ -101,10 +101,10 @@ Mesh.prototype.setPosition = function(x, y, z) {
 
 Mesh.prototype.faceVertexUv = function(i) {
   var vs = [
-    this.meshed.vertices[i*4+0],
-    this.meshed.vertices[i*4+1],
-    this.meshed.vertices[i*4+2],
-    this.meshed.vertices[i*4+3]
+    this.meshed.vertices[i * 4 + 0],
+    this.meshed.vertices[i * 4 + 1],
+    this.meshed.vertices[i * 4 + 2],
+    this.meshed.vertices[i * 4 + 3]
   ]
   var spans = {
     x0: vs[0][0] - vs[1][0],
@@ -123,8 +123,7 @@ Mesh.prototype.faceVertexUv = function(i) {
     if (spans.y0 > spans.y1) {
       var width = size.y
       var height = size.z
-    }
-    else {
+    } else {
       var width = size.z
       var height = size.y
     }
@@ -133,8 +132,7 @@ Mesh.prototype.faceVertexUv = function(i) {
     if (spans.x0 > spans.x1) {
       var width = size.x
       var height = size.z
-    }
-    else {
+    } else {
       var width = size.z
       var height = size.x
     }
@@ -143,8 +141,7 @@ Mesh.prototype.faceVertexUv = function(i) {
     if (spans.x0 > spans.x1) {
       var width = size.x
       var height = size.y
-    }
-    else {
+    } else {
       var width = size.y
       var height = size.x
     }
@@ -164,5 +161,4 @@ Mesh.prototype.faceVertexUv = function(i) {
       new this.THREE.Vector2(width, 0)
     ]
   }
-}
-;
+};
