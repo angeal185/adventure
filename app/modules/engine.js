@@ -9,8 +9,6 @@ Stats = require('./lib/stats'),
 Detector = require('./lib/detector'),
 path = require('path'),
 EventEmitter = require('events').EventEmitter,
-interact = require('interact'),
-collisions = require('./collide-3d-tilemap'),
 aabb = require('./aabb-3d'),
 glMatrix = require('./lib/gl-matrix'),
 vector = glMatrix.vec3,
@@ -68,7 +66,7 @@ function Game(opts) {
 
 
 
-  this.collideVoxels = collisions(
+  this.collideVoxels = utils.collisions(
     this.getBlock.bind(this),
     1,
     [Infinity, Infinity, Infinity],
@@ -298,10 +296,6 @@ Game.prototype.createAdjacent = function(hit, val) {
   this.createBlock(hit.adjacent, val)
 }
 
-Game.prototype.appendTo = function (element) {
-  this.view.appendTo(element);
-}
-
 // # Defaults/options parsing
 
 Game.prototype.gravity = [0, -0.0000036, 0];
@@ -419,20 +413,14 @@ Game.prototype.configureChunkLoading = function(opts) {
   if (!opts.generateChunks){
     return;
   }
-
-  this.generate = opts.generate;
-
-  if (opts.generateVoxelChunk) {
-    this.generateVoxelChunk = opts.generateVoxelChunk
-  } else {
-    this.generateVoxelChunk = function(low, high) {
-      return voxel.generate(low, high, self.generate, self)
-    }
+  this.generate = utils.generate;
+  this.generateVoxelChunk = function(low, high) {
+    return voxel.generate(low, high, self.generate, self)
   }
 }
 
 Game.prototype.worldWidth = function() {
-  return this.chunkSize * 2 * this.chunkDistance
+  return this.chunkSize * 2 * this.chunkDistance;
 }
 
 Game.prototype.chunkToWorld = function(pos) {
@@ -508,8 +496,7 @@ Game.prototype.loadPendingChunks = function(count) {
   for (var i = 0; i < count; i += 1) {
     let chunkPos = pendingChunks[i].split('|'),
     chunk = this.voxels.generateChunk(chunkPos[0]|0, chunkPos[1]|0, chunkPos[2]|0);
-
-    this.showChunk(chunk)
+    this.showChunk(chunk);
   }
 
   if (count){
@@ -701,9 +688,10 @@ Game.prototype.initializeControls = function(opts) {
   // player control
   this.keybindings = opts.keybindings;
   this.buttons = kb(document.body, this.keybindings);
+  console.log()
   this.buttons.disable();
   this.optout = false;
-  this.interact = interact(opts.interactElement || this.view.element, opts.interactMouseDrag);
+  this.interact = utils.interact(opts.interactElement || this.view.element, opts.interactMouseDrag);
   this.interact
   .on('attain', this.onControlChange.bind(this, true))
   .on('release', this.onControlChange.bind(this, false))

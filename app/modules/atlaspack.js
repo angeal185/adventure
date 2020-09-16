@@ -242,5 +242,3 @@ Atlas.prototype._debug = function() {
 module.exports = function() {
   return new Atlas(...arguments);
 };
-module.exports.Atlas = Atlas;
-module.exports.Rect = Rect;

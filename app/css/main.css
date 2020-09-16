@@ -63,6 +63,16 @@ body {
   left: 0;
 }
 
+#mini-map{
+  background:rgba(0,0,0,75%);
+  box-shadow: 0 0 6px black;
+  border-radius: 4px;
+  position: fixed;
+  bottom: .5rem;
+    right: .5rem;
+  z-index: 9;
+}
+
 #counter{
   position: fixed;
   display: none;

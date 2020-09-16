@@ -1,10 +1,110 @@
 const EE = require('events').EventEmitter,
+lock = require('../modules/pointer'),
 fs = require('fs'),
 skin = require('../modules/minecraft-skin'),
 config = require('../data/config'),
-walk = require('../modules/walk');
+walk = require('../modules/walk'),
+x = require('./xscript'),
+tpl = require('../views/tpl'),
+minimap = require('../modules/minimap');
 
 const utils = {
+  display(){
+    setTimeout(function(){
+      document.body.classList.add('show');
+      utils.focus();
+      setTimeout(function(){
+        utils.dispatch('contact', {
+          name: 'location',
+          msg: 'Home'
+        });
+        utils.initSky();
+      },1000)
+    },3000)
+  },
+  buildBody(currentBlock,container,minmap,contact,counter){
+    document.body.append(
+      x('app-menu', {id: 'app-menu'},
+        currentBlock,
+        function(){
+          let div = x('div', {class: 'quick-block'});
+          for (let i = 0; i < config.quick_block.length; i++) {
+            let blk = utils.blockImg(config.quick_block[i]);
+            div.append(x('img', {
+              title: blk[0],
+              src: blk[1],
+              onclick(evt){
+                user.selectedBlock = config.quick_block[i];
+                currentBlock.src = evt.target.src;
+                currentBlock.title = evt.target.title;
+              }
+            }))
+          }
+          return div;
+        }
+      ),
+      container,
+      x('app-sub',
+        minmap,
+        contact,
+        counter,
+        mapStats.cnv,
+        tpl.dialogue(),
+        tpl.inventory()
+      )
+    )
+    return this;
+  },
+  interact(el, skiplock) {
+    let ee = new EE,
+    internal
+
+
+    internal = utils.uselock(el, politelydeclined);
+
+    ee.release = function() {
+      internal.release && internal.release();
+    }
+    ee.request = function() {
+      internal.request && internal.request();
+    }
+    ee.destroy = function() {
+      internal.destroy && internal.destroy();
+    }
+
+    forward()
+
+    return ee;
+
+    function politelydeclined() {
+      ee.emit('opt-out')
+      internal.destroy();
+      forward()
+    }
+
+    function forward() {
+      internal.on('attain', function(stream) {
+        ee.emit('attain', stream)
+      })
+
+      internal.on('release', function() {
+        ee.emit('release')
+      })
+    }
+  },
+  uselock(el, declined) {
+    var pointer = lock(el);
+    pointer.on('error', declined)
+    return pointer
+  },
+  buildMap(){
+    for (let i = 0; i < map.length; i++) {
+      for (let j = 0; j < map[i].length; j++) {
+        game.setBlock(map[i][j], i)
+      }
+    }
+    return this;
+  },
   dispatch(evt, data){
     window.dispatchEvent(new CustomEvent(evt, {detail: data}))
   },
@@ -225,7 +325,17 @@ const utils = {
     a.yaw.position.set(9, 2, 15)
     return a;
   },
-  initSky(arr, skySpeed, skyDelay){
+  addCharacters(){
+    for (let i = 0; i < lvl.characters.length; i++) {
+      utils.create_npc(lvl.characters[i])
+    }
+    global.avatar = utils.avatar(game, config.defaults);
+    return this;
+  },
+  initSky(){
+    let arr = config.sky,
+    skySpeed = config.skySpeed,
+    skyDelay = config.skyDelay;
     setTimeout(function(){
       let len = arr.length,
       cnt = 0,
@@ -249,7 +359,7 @@ const utils = {
     },skyDelay)
   },
   focus(){
-    window.game.view.element.requestPointerLock();
+    game.view.element.requestPointerLock();
   },
   unfocus(){
     document.exitPointerLock();
@@ -356,7 +466,7 @@ const utils = {
       },1000)
     }
   },
-  keydown(evt, minmap){
+  keydown(evt, mm){
     console.log(evt.keyCode)
 
     if([37,38,39,40,65,68,87,83].indexOf(evt.keyCode !== -1)){
@@ -368,7 +478,8 @@ const utils = {
           utils.dead(contact);
         }
       }
-      minmap.textContent = pos.toString();
+      mm.textContent = pos.toString();
+      minimap.pos([pos[0],pos[2]])
 
     }
 
@@ -596,6 +707,78 @@ const utils = {
 
           return physics;
       }
+  },
+  collisions(field, tilesize, dimensions, offset) {
+    dimensions = dimensions || [
+      Math.sqrt(field.length) >> 0, Math.sqrt(field.length) >> 0, Math.sqrt(field.length) >> 0
+    ]
+
+    offset = offset || [
+      0, 0, 0
+    ]
+
+    field = typeof field === 'function' ? field : function(x, y, z) {
+      return this[x + y * dimensions[1] + (z * dimensions[1] * dimensions[2])]
+    }.bind(field)
+
+    var coords
+
+    coords = [0, 0, 0]
+
+    return collide
+
+    function collide(box, vec, oncollision) {
+
+      // collide x, then y - if vector has a nonzero component
+      if (vec[0] !== 0) collideaxis(0)
+      if (vec[1] !== 0) collideaxis(1)
+      if (vec[2] !== 0) collideaxis(2)
+
+      function collideaxis(i_axis) {
+        var j_axis = (i_axis + 1) % 3,
+          k_axis = (i_axis + 2) % 3,
+          posi = vec[i_axis] > 0,
+          leading = box[posi ? 'max' : 'base'][i_axis],
+          dir = posi ? 1 : -1,
+          i_start = Math.floor(leading / tilesize),
+          i_end = (Math.floor((leading + vec[i_axis]) / tilesize)) + dir,
+          j_start = Math.floor(box.base[j_axis] / tilesize),
+          j_end = Math.ceil(box.max[j_axis] / tilesize),
+          k_start = Math.floor(box.base[k_axis] / tilesize),
+          k_end = Math.ceil(box.max[k_axis] / tilesize),
+          done = false,
+          edge_vector, edge, tile
+
+        var step = 0
+        for (var i = i_start; !done && i !== i_end; ++step, i += dir) {
+          if (i < offset[i_axis] || i >= dimensions[i_axis]) continue
+          for (var j = j_start; !done && j !== j_end; ++j) {
+            if (j < offset[j_axis] || j >= dimensions[j_axis]) continue
+            for (var k = k_start; k !== k_end; ++k) {
+              if (k < offset[k_axis] || k >= dimensions[k_axis]) continue
+              coords[i_axis] = i
+              coords[j_axis] = j
+              coords[k_axis] = k
+              tile = field.apply(field, coords)
+
+              if (tile === undefined) continue
+
+              edge = dir > 0 ? i * tilesize : (i + 1) * tilesize
+              edge_vector = edge - leading
+
+              if (oncollision(i_axis, tile, coords, dir, edge_vector)) {
+                done = true
+                break
+              }
+            }
+          }
+        }
+
+        coords[0] = coords[1] = coords[2] = 0
+        coords[i_axis] = vec[i_axis]
+        box.translate(coords)
+      }
+    }
   }
 }
 

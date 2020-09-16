@@ -1,7 +1,31 @@
-const x = require('../utils/xscript'),
-utils = require('../utils')
+const x = require('../utils/xscript');
 
 const tpl = {
+  counter(){
+    return x('div', {id: 'counter'})
+  },
+  minmap(){
+    return x('div', {id: 'minmap'})
+  },
+  contact(){
+    return x('div', {id: 'contact'},
+      x('div'),x('div')
+    )
+  },
+  container(){
+    return x('app-main',
+      x('div', {id: 'crosshair'},
+        x('img', {src: './app/img/crosshair.png'})
+      ),
+      game.view.element
+    )
+  },
+  currentBlock(blockarr){
+    return x('img', {
+      title: blockarr[0],
+      src: blockarr[1]
+    })
+  },
   dialogue(){
     let head_txt = x('h5', {class: 'modal-title'}),
     body_txt = x('p'),
@@ -15,7 +39,7 @@ const tpl = {
               class: 'btn btn-outline-secondary btn-sm',
               onclick(){
                 mdl.classList.remove('show');
-                utils.focus();
+                game.view.element.requestPointerLock();
                 setTimeout(function(){
                   head_txt.textContent = '';
                   body_txt.innerHTML = '';
@@ -58,7 +82,7 @@ const tpl = {
               class: 'btn btn-outline-secondary btn-sm',
               onclick(){
                 mdl.classList.remove('show');
-                utils.focus();
+                game.view.element.requestPointerLock();
                 setTimeout(function(){
                   body.innerHTML = '';
                 },500)

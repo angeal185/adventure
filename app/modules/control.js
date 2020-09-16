@@ -7,7 +7,6 @@ function control(control_state, opts) {
 function Control(state, opts) {
   Stream.call(this)
 
-  opts = opts || {}
   this.state = state;
   this._pitch_target =
   this._yaw_target =
