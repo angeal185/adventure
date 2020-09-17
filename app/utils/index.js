@@ -8,6 +8,10 @@ x = require('./xscript'),
 tpl = require('../views/tpl'),
 minimap = require('../modules/minimap');
 
+let timeout = {
+  toast: [null, null]
+}
+
 const utils = {
   display(){
     setTimeout(function(){
@@ -22,7 +26,7 @@ const utils = {
       },1000)
     },3000)
   },
-  buildBody(currentBlock,container,minmap,contact,counter,compas){
+  buildBody(utils,currentBlock,container,minmap,contact,counter,compas){
     document.body.append(
       x('app-menu', {id: 'app-menu'},
         currentBlock,
@@ -50,26 +54,36 @@ const utils = {
         contact,
         counter,
         mapStats.cnv,
+        tpl.progress(),
         x('div', {class:'ico-div'},
           x('div', {class:'ico-item'},
             x('img', {
               src: './app/img/ico/mark.png',
               class:'ico-img',
-              title: 'Mark'
+              title: 'Mark',
+              onclick(){
+                utils.mark()
+              }
             })
           ),
           x('div', {class:'ico-item'},
             x('img', {
               src: './app/img/ico/recall.png',
               class:'ico-img',
-              title: 'Recall'
+              title: 'Recall',
+              onclick(){
+                utils.recall()
+              }
             })
           ),
           x('div', {class:'ico-item'},
             x('img', {
               src: './app/img/ico/home.png',
               class:'ico-img',
-              title: 'Home'
+              title: 'Home',
+              onclick(){
+                utils.toHome();
+              }
             })
           )
         ),
@@ -399,28 +413,53 @@ const utils = {
   },
   toast(contact, head, body){
     if(user.indisposed){
-      return;
+      clearInterval(timeout.toast[0]);
+      clearInterval(timeout.toast[1]);
+    } else {
+      user.indisposed = true;
     }
-    user.indisposed = true;
     contact.classList.add('show')
     contact.firstChild.textContent = head;
     contact.lastChild.textContent = body;
-    setTimeout(function(){
+    timeout.toast[0] = setTimeout(function(){
       contact.classList.remove('show');
-      setTimeout(function(){
+      timeout.toast[1] = setTimeout(function(){
         contact.firstChild.textContent = '';
         contact.lastChild.textContent = '';
+        timeout.toast[0] = timeout.toast[1] = null
         user.indisposed = false;
       },1000)
     },3000)
-
   },
   toHome(){
-    avatar.position.set(9, 2, 15);
-    utils.dispatch('contact', {
+    utils.dispatch('teleport', {
+      pos: [9, 2, 15],
       name: 'location',
       msg: 'Home'
     })
+  },
+  mark(){
+    user.mark = user.pos;
+    minimap.mark([user.mark[0], user.mark[2]]).pos();
+    utils.dispatch('contact', {
+      name: 'Mark',
+      msg: 'Mark updated'
+    })
+  },
+  recall(){
+    if(user.mark){
+      utils.dispatch('teleport', {
+        pos: user.mark,
+        name: 'location',
+        msg: 'Recall point'
+      })
+    } else {
+      utils.dispatch('contact', {
+        pos: [9, 2, 15],
+        name: 'Recall',
+        msg: 'No Recall point set'
+      })
+    }
   },
   toPrison(){
     let cnt = lvl.prisonTime;
@@ -496,7 +535,8 @@ const utils = {
     if([37,38,39,40,65,68,87,83].indexOf(evt.keyCode !== -1)){
 
       let pos = utils.getpos(game);
-
+      user.pos = Array.from(pos);
+      user.pos[1]++;
       if(pos[1] < -18){
         if(!isDead){
           utils.dead(contact);

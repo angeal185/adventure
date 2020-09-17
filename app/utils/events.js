@@ -83,7 +83,19 @@ function events(contact,counter,minmap,currentBlock,compas){
 
   setInterval(function(){
     stars.tick();
-    utils.compas(compas)
+    utils.compas(compas);
+    if(user.life !== 100){
+      user.life++
+      let percent = user.life + '%'
+      ele.life.lastChild.style.width = percent;
+      ele.life.title = percent;
+    }
+    if(user.mana !== 100){
+      user.mana++
+      let percent = user.mana + '%'
+      ele.mana.lastChild.style.width = percent;
+      ele.mana.title = percent;
+    }
   },1000)
 
   window.addEventListener('contact', function (evt) {
@@ -94,6 +106,15 @@ function events(contact,counter,minmap,currentBlock,compas){
   window.addEventListener('counter', function (evt) {
     evt = evt.detail;
     utils.counterDisplay(counter,evt)
+  }, false);
+
+  window.addEventListener('teleport', function (evt) {
+    evt = evt.detail;
+    avatar.position.set(...evt.pos);
+    utils.dispatch('contact', {
+      name: evt.name,
+      msg: evt.msg
+    })
   }, false);
 
   window.addEventListener('keydown', function(evt) {

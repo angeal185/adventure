@@ -93,15 +93,16 @@ body {
 
 #contact{
   position: fixed;
-  width: 9rem;
+  min-width: 9rem;
   background: rgb(0 0 0 / 66%);
   box-shadow: 0 0 4px rgb(0 0 0 / 66%);
-  bottom: 1rem;
+  bottom: 40px;
   color: #b5b5b5;
   padding: .5rem;
   border-radius: 4px;
   right: -10rem;
   transition: all 1s;
+  z-index: 999999;
 }
 
 #contact div:first-child{
@@ -126,17 +127,29 @@ body {
 }
 
 .modal-content {
-    background-color: rgba(43, 43, 43, 0.8);
+    background: rgba(0,0,0,65%);
     border: none;
     box-shadow: 0 0 6px black;
+    border-radius: 4px;
 }
 
 .modal-header {
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.7)
 }
 
 .modal-footer {
-  border-top: 1px solid #545454;
+  border-top: 1px solid rgba(0, 0, 0, 0.7)
+}
+
+.btn-outline-secondary {
+    color: #696666;
+    border-color: #000000;
+}
+.btn-outline-secondary:hover,.btn-outline-secondary:active,.btn-outline-secondary:focus {
+    color: #696666;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: #000000;
+    box-shadow: 0 0 4px black;
 }
 
 ::-webkit-scrollbar {
@@ -177,4 +190,111 @@ body {
 
 .ico-img:hover {
   opacity: 1;
+}
+
+
+
+.progress-wrap{
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  z-index: 1;
+}
+
+.progress {
+  position: relative;
+  margin-left: 10px;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 6px;
+  border-radius: 20px;
+  display: inline-block;
+  box-shadow: 0 0 4px black;
+}
+
+.progress-text {
+  position: absolute;
+  font: bold 14px/20px Arial;
+  text-align: center;
+  top: 0;
+  left: 0;
+}
+
+.progress, .progress-bar, .progress-text {
+  width: 200px;
+  max-width: 200px;
+  height: 10px;
+  display: table;
+}
+
+.progress .progress-text:first-child {
+  z-index: 5;
+  color: white;
+}
+
+.progress .progress-text:last-child {
+  z-index: 10;
+  color: black;
+}
+
+.progress-bar {
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  border-radius: 12px;
+  width: 0;
+  transition: width .2s linear;
+  width: 50%;
+  cursor: pointer;
+}
+
+.progress.sparkle .progress-bar {
+
+  background-image: url(../img/sparkle.png);
+  box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.5), inset 0 2px 2px rgba(255, 255, 255, 0.8);
+  animation: sparkle 10s linear infinite;
+}
+
+.progress.sparkle:nth-child(1) .progress-bar {
+  background-color: red;
+}
+
+.progress.sparkle:nth-child(2) .progress-bar {
+  background-color: blue;
+}
+
+
+
+@-webkit-keyframes sparkle {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -64px;
+  }
+}
+@-moz-keyframes sparkle {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -64px;
+  }
+}
+@-o-keyframes sparkle {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -64px;
+  }
+}
+@keyframes sparkle {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -64px;
+  }
 }

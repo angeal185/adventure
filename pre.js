@@ -17,12 +17,15 @@ global.mapStats = {
   sz: lvls[lvl].mapSize
 }
 
+global.ele = {};
 global.lvl = require('./app/data/lvl_'+ lvl);
 
 global.npc = [];
 global.db = low(adapter);
 global.user = {
-  selectedBlock: 1
+  selectedBlock: 1,
+  life: 50,
+  mana: 50
 }
 global.isDead = false;
 

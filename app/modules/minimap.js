@@ -17,7 +17,11 @@ Minimap.prototype = {
     let i = mapStats.pos,
     j = mapStats.home,
     dot = this.dot;
-    e = this.resize(e) || i;
+    if(!e){
+      e = i;
+    } else {
+      e = this.resize(e);
+    }
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.ctx.fillStyle = 'red';
     this.ctx.fillRect(e[0], e[1], dot, dot);
@@ -48,27 +52,21 @@ Minimap.prototype = {
     return this;
   },
   mark(e){
-
     mapStats.mark = this.resize(e);
-    //do something...
     return this;
   },
   mission(e){
     mapStats.mission = this.resize(e);
-    //do something...
     return this;
   },
   dest(e){
     mapStats.dest = this.resize(e);
-    //do something...
     return this;
   },
   resize(e){
     let offset = this.offset;
-
     e[0] = e[0] * 2 + offset[0]
     e[1] = e[1] * 2 + offset[1]
-
     return e
   }
 }

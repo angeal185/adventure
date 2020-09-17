@@ -15,6 +15,26 @@ const tpl = {
       x('div'),x('div')
     )
   },
+  progress(){
+    global.ele.life = x('div', {class: 'progress sparkle'},
+      x('div', {class:'progress-text'}),
+      x('div', {class:'progress-bar'},
+        x('div', {class:'progress-text'})
+      )
+    )
+    global.ele.mana = x('div', {class: 'progress sparkle'},
+      x('div', {class:'progress-text'}),
+      x('div', {class:'progress-bar'},
+        x('div', {class:'progress-text'})
+      )
+    )
+
+    return x('div', {class: 'progress-wrap'},
+      ele.life,
+      ele.mana
+    )
+
+  },
   container(){
     return x('app-main',
       x('div', {id: 'crosshair'},

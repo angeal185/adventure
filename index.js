@@ -28,7 +28,7 @@ const app = {
     blockarr = utils.blockImg(),
     currentBlock = tpl.currentBlock(blockarr);
 
-    utils.buildBody(currentBlock,container,minmap,contact,counter,compas).addCharacters().buildMap()
+    utils.buildBody(utils,currentBlock,container,minmap,contact,counter,compas).addCharacters().buildMap()
 
     events(contact,counter,minmap,currentBlock,compas).display()
 
