@@ -7,6 +7,9 @@ const tpl = {
   minmap(){
     return x('div', {id: 'minmap'})
   },
+  compas(){
+    return x('div', {id: 'compas'})
+  },
   contact(){
     return x('div', {id: 'contact'},
       x('div'),x('div')

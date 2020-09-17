@@ -3,7 +3,15 @@ fly = require('../modules/fly'),
 highlight = require('../modules/highlight'),
 {snow, stars} = require('../modules/sky');
 
-function events(contact,counter,minmap,currentBlock){
+function events(contact,counter,minmap,currentBlock,compas){
+
+  document.addEventListener('pointerlockchange', function(event){
+    if(document.pointerLockElement){
+      pointerlock = true;
+    } else {
+      pointerlock = false;
+    }
+  })
 
   let target = game.controls.target();
   game.flyer = fly(game)(target);
@@ -15,7 +23,7 @@ function events(contact,counter,minmap,currentBlock){
   blockPosErase;
 
   hl.on('highlight', function(voxelPos) {
-    console.log(voxelPos)
+    //console.log(voxelPos)
     dev.addNpc(voxelPos)
     blockPosErase = voxelPos
   })
@@ -71,8 +79,12 @@ function events(contact,counter,minmap,currentBlock){
   game.on('tick', function() {
     utils.walk(target);
     snow.tick();
-    stars.tick();
   })
+
+  setInterval(function(){
+    stars.tick();
+    utils.compas(compas)
+  },1000)
 
   window.addEventListener('contact', function (evt) {
     evt = evt.detail;

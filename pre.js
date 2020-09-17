@@ -6,7 +6,7 @@ lvls = require('./app/data/lvls');
 process.browser = true;
 
 global.lvl = localStorage.getItem('lvl') || 0;
-
+global.pointerlock = false;
 global.mapStats = {
   pos: [-1,-1], // current position
   mark:[-1,0], // dynamic marker

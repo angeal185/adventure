@@ -22,7 +22,7 @@ const utils = {
       },1000)
     },3000)
   },
-  buildBody(currentBlock,container,minmap,contact,counter){
+  buildBody(currentBlock,container,minmap,contact,counter,compas){
     document.body.append(
       x('app-menu', {id: 'app-menu'},
         currentBlock,
@@ -45,10 +45,34 @@ const utils = {
       ),
       container,
       x('app-sub',
+        compas,
         minmap,
         contact,
         counter,
         mapStats.cnv,
+        x('div', {class:'ico-div'},
+          x('div', {class:'ico-item'},
+            x('img', {
+              src: './app/img/ico/mark.png',
+              class:'ico-img',
+              title: 'Mark'
+            })
+          ),
+          x('div', {class:'ico-item'},
+            x('img', {
+              src: './app/img/ico/recall.png',
+              class:'ico-img',
+              title: 'Recall'
+            })
+          ),
+          x('div', {class:'ico-item'},
+            x('img', {
+              src: './app/img/ico/home.png',
+              class:'ico-img',
+              title: 'Home'
+            })
+          )
+        ),
         tpl.dialogue(),
         tpl.inventory()
       )
@@ -778,6 +802,46 @@ const utils = {
         coords[i_axis] = vec[i_axis]
         box.translate(coords)
       }
+    }
+  },
+  returnDeg(){
+    if(pointerlock){
+      let cd = game.THREE.Math.radToDeg(game.controls.target().avatar.rotation.y);
+      if(cd !== 0){
+        if(cd < 0){
+          cd = Math.abs(cd);
+        }
+        cd = Math.floor(cd - (360 * Math.floor(cd / 360)))
+      }
+      return cd;
+    }
+  },
+  nsew(i){
+    let str = '';
+    if(i >= 0 && i < 45){
+      str+= 'N'
+    } else if(i >= 45 && i < 90){
+      str+= 'NE'
+    } else if(i >= 90 && i < 135){
+      str+= 'E'
+    } else if(i >= 135 && i < 180){
+      str+= 'SE'
+    } else if(i >= 180 && i < 225){
+      str+= 'S'
+    } else if(i >= 225 && i < 270){
+      str+= 'SW'
+    } else if(i >= 270 && i < 315){
+      str+= 'W'
+    } else{
+      str+= 'NW'
+    }
+    return str;
+  },
+  compas(ele){
+    let deg = utils.returnDeg();
+    if(deg){
+      deg = '' + deg + '&deg; ' + utils.nsew(deg);
+      ele.innerHTML = deg;
     }
   }
 }

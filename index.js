@@ -21,15 +21,16 @@ const app = {
   init(){
 
     let minmap = tpl.minmap(),
+    compas = tpl.compas(),
     contact = tpl.contact(),
     counter = tpl.counter(),
     container = tpl.container(),
     blockarr = utils.blockImg(),
     currentBlock = tpl.currentBlock(blockarr);
 
-    utils.buildBody(currentBlock,container,minmap,contact,counter).addCharacters().buildMap()
+    utils.buildBody(currentBlock,container,minmap,contact,counter,compas).addCharacters().buildMap()
 
-    events(contact,counter,minmap,currentBlock).display()
+    events(contact,counter,minmap,currentBlock,compas).display()
 
   }
 }

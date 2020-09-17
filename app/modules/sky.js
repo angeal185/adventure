@@ -23,7 +23,7 @@ Snow.prototype.add = function(count, size, material) {
   count = count || 1000;
   size  = size  || 20;
   material = material || new game.THREE.ParticleBasicMaterial({
-    color: 0xffffff,
+    color: 0x9999ff,
     size: 1
   });
 
@@ -133,28 +133,30 @@ Stars.prototype.add = function(count, size, material) {
 };
 
 Stars.prototype.tick = function() {
-  let self = this,
-  target = self.game.controls.target();
-  self.particles.forEach(function(particle) {
-    if (target == null){
-      return;
-    }
-    particle.position.copy(target.position);
 
-    let bounds = particle.geometry.boundingBox,
-    count = particle.geometry.vertices.length,
-    y = target.velocity.y;
-
-    while (count--) {
-      var p = particle.geometry.vertices[count];
-      if (p.y > bounds.max.y) {
-        p.y = bounds.min.y;
+    let self = this,
+    target = self.game.controls.target();
+    self.particles.forEach(function(particle) {
+      if (target == null){
+        return;
       }
-      p.y+= 0.00002
-    }
+      particle.position.copy(target.position);
 
-    particle.geometry.verticesNeedUpdate = true;
-  });
+      let bounds = particle.geometry.boundingBox,
+      count = particle.geometry.vertices.length,
+      y = target.velocity.y;
+
+      while (count--) {
+        var p = particle.geometry.vertices[count];
+        if (p.y > bounds.max.y) {
+          p.y = bounds.min.y;
+        }
+        p.y+= 0.00002
+      }
+
+      particle.geometry.verticesNeedUpdate = true;
+    });
+  
 };
 
 function rand(min, max) { return Math.random() * (max - min) + min; }
