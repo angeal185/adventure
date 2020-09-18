@@ -3,7 +3,7 @@ fly = require('../modules/fly'),
 highlight = require('../modules/highlight'),
 {snow, stars} = require('../modules/sky');
 
-function events(contact,counter,minmap,currentBlock,compas){
+function events(contact,counter,minmap,currentBlock,compas,clock){
 
   document.addEventListener('pointerlockchange', function(event){
     if(document.pointerLockElement){
@@ -24,7 +24,7 @@ function events(contact,counter,minmap,currentBlock,compas){
 
   hl.on('highlight', function(voxelPos) {
     //console.log(voxelPos)
-    dev.addNpc(voxelPos)
+    //dev.addNpc(voxelPos)
     blockPosErase = voxelPos
   })
 
@@ -84,28 +84,27 @@ function events(contact,counter,minmap,currentBlock,compas){
   setInterval(function(){
     stars.tick();
     utils.compas(compas);
-    if(user.life !== 100){
-      user.life++
-      let percent = user.life + '%'
-      ele.life.lastChild.style.width = percent;
-      ele.life.title = percent;
+    if(user.life !== 100 && user.life !== 0){
+      utils.vitalize({item: 'life', ammount: 1, add: true})
     }
     if(user.mana !== 100){
-      user.mana++
-      let percent = user.mana + '%'
-      ele.mana.lastChild.style.width = percent;
-      ele.mana.title = percent;
+      utils.vitalize({item: 'mana', ammount: 2, add: true})
     }
   },1000)
 
   window.addEventListener('contact', function (evt) {
     evt = evt.detail;
-    utils.toast(contact, evt.name, evt.msg)
+    utils.toast(contact, evt.name, evt.msg);
+  }, false);
+
+  window.addEventListener('clock', function (evt) {
+    evt = evt.detail;
+    utils.clock(evt, clock);
   }, false);
 
   window.addEventListener('counter', function (evt) {
     evt = evt.detail;
-    utils.counterDisplay(counter,evt)
+    utils.counterDisplay(counter,evt);
   }, false);
 
   window.addEventListener('teleport', function (evt) {
@@ -118,12 +117,13 @@ function events(contact,counter,minmap,currentBlock,compas){
   }, false);
 
   window.addEventListener('keydown', function(evt) {
-    utils.keydown(evt, minmap)
+    utils.keydown(evt, minmap);
   })
 
   window.addEventListener('keyup', function(evt) {
-    utils.keyup(evt, currentBlock)
+    utils.keyup(evt, currentBlock);
   })
+
   return utils;
 }
 

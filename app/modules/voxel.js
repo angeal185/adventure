@@ -6,9 +6,6 @@ module.exports = function(opts) {
 
 module.exports.meshers = {
   culled: require('./meshers/culled').mesher,
-  greedy: require('./meshers/greedy').mesher,
-  monotone: require('./meshers/monotone').mesher,
-  stupid: require('./meshers/stupid').mesher
 }
 
 module.exports.Chunker = chunker.Chunker

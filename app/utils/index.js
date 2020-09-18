@@ -1,7 +1,7 @@
 const EE = require('events').EventEmitter,
 lock = require('../modules/pointer'),
 fs = require('fs'),
-skin = require('../modules/minecraft-skin'),
+skin = require('../modules/skin'),
 config = require('../data/config'),
 walk = require('../modules/walk'),
 x = require('./xscript'),
@@ -13,6 +13,27 @@ let timeout = {
 }
 
 const utils = {
+  clock(evt, item){
+    let arr = (evt / 6).toFixed(2).split('.'),
+    min = arr[1];
+
+    if(arr[0].length === 1){
+      arr[0] = '0'+ arr[0];
+    }
+    if(min === '17'){
+      arr[1] = '10'
+    } else if(min === '33'){
+      arr[1] = '20'
+    } else if(min === '50'){
+      arr[1] = '30'
+    } else if(min === '67'){
+      arr[1] = '40'
+    } else if(min === '83'){
+      arr[1] = '50'
+    }
+    arr = arr.join(':');
+    item.textContent = arr;
+  },
   display(){
     setTimeout(function(){
       document.body.classList.add('show');
@@ -26,7 +47,7 @@ const utils = {
       },1000)
     },3000)
   },
-  buildBody(utils,currentBlock,container,minmap,contact,counter,compas){
+  buildBody(utils,currentBlock,container,minmap,contact,counter,compas, clock){
     document.body.append(
       x('app-menu', {id: 'app-menu'},
         currentBlock,
@@ -49,6 +70,7 @@ const utils = {
       ),
       container,
       x('app-sub',
+        clock,
         compas,
         minmap,
         contact,
@@ -60,7 +82,7 @@ const utils = {
             x('img', {
               src: './app/img/ico/mark.png',
               class:'ico-img',
-              title: 'Mark',
+              title: 'Mark (10 mana)',
               onclick(){
                 utils.mark()
               }
@@ -70,7 +92,7 @@ const utils = {
             x('img', {
               src: './app/img/ico/recall.png',
               class:'ico-img',
-              title: 'Recall',
+              title: 'Recall (30 mana)',
               onclick(){
                 utils.recall()
               }
@@ -380,6 +402,9 @@ const utils = {
       light = arr[0][1],
       fog = arr[0][2]
       setInterval(function(){
+
+        utils.dispatch('clock', cnt);
+
         skyChange(arr[cnt][0])
         if(arr[cnt][1] !== light){
           light = arr[cnt][1];
@@ -402,14 +427,17 @@ const utils = {
   unfocus(){
     document.exitPointerLock();
   },
-  dead(contact){
+  dead(){
     isDead = true;
-    contact.classList.add('show');
-    contact.firstChild.textContent = 'Game';
-    contact.lastChild.textContent = 'You died!';
+    game.view.element.style.filter = 'blur(10px)';
+    document.body.append(tpl.deathMask())
+    utils.dispatch('contact', {
+      name: 'event',
+      msg: 'You died!'
+    });
     setTimeout(function(){
-      location.reload()
-    },1000)
+      location.reload();
+    },2000)
   },
   toast(contact, head, body){
     if(user.indisposed){
@@ -432,6 +460,15 @@ const utils = {
     },3000)
   },
   toHome(){
+    if(user.mana < 30){
+      return utils.dispatch('contact', {
+        name: 'mana',
+        msg: 'insufficient mana'
+      });
+    }
+
+    utils.vitalize({item: 'mana', ammount: 30, add: false})
+
     utils.dispatch('teleport', {
       pos: [9, 2, 15],
       name: 'location',
@@ -439,6 +476,15 @@ const utils = {
     })
   },
   mark(){
+
+    if(user.mana < 10){
+      return utils.dispatch('contact', {
+        name: 'mana',
+        msg: 'insufficient mana'
+      });
+    }
+
+    utils.vitalize({item: 'mana', ammount: 10, add: false})
     user.mark = user.pos;
     minimap.mark([user.mark[0], user.mark[2]]).pos();
     utils.dispatch('contact', {
@@ -448,6 +494,15 @@ const utils = {
   },
   recall(){
     if(user.mark){
+      if(user.mana < 30){
+        return utils.dispatch('contact', {
+          name: 'mana',
+          msg: 'insufficient mana'
+        });
+      }
+
+      utils.vitalize({item: 'mana', ammount: 30, add: false})
+
       utils.dispatch('teleport', {
         pos: user.mark,
         name: 'location',
@@ -530,7 +585,7 @@ const utils = {
     }
   },
   keydown(evt, mm){
-    console.log(evt.keyCode)
+    //console.log(evt.keyCode)
 
     if([37,38,39,40,65,68,87,83].indexOf(evt.keyCode !== -1)){
 
@@ -539,7 +594,7 @@ const utils = {
       user.pos[1]++;
       if(pos[1] < -18){
         if(!isDead){
-          utils.dead(contact);
+          utils.dead();
         }
       }
       mm.textContent = pos.toString();
@@ -882,6 +937,42 @@ const utils = {
     if(deg){
       deg = '' + deg + '&deg; ' + utils.nsew(deg);
       ele.innerHTML = deg;
+    }
+  },
+  vitalize(obj){
+    // utils.vitalize({item: 'life', ammount: 100, add: false})
+    let current = user[obj.item];
+    if(obj.add){
+      user[obj.item] = user[obj.item] + obj.ammount;
+      if(user[obj.item] > 100){
+        user[obj.item] = 100;
+      }
+      let percent = user[obj.item] + '%'
+      ele[obj.item].lastChild.style.width = percent;
+      ele[obj.item].title = percent;
+      if(obj.item === 'life'){
+        if(user[obj.item] > 10 && current <= 10){
+          game.view.element.style.filter = null;
+        }
+      }
+    } else {
+      user[obj.item] = current - obj.ammount;
+      if(user[obj.item] < 1){
+        user[obj.item] = 0;
+      }
+      let percent = user[obj.item] + '%'
+      ele[obj.item].lastChild.style.width = percent;
+      ele[obj.item].title = percent;
+      if(obj.item === 'life'){
+        if(user[obj.item] === 0){
+          return utils.dead();
+        }
+        if(user[obj.item] <= 10 && current > 10){
+          game.view.element.style.filter = 'grayscale(50%)';
+        }
+      }
+
+
     }
   }
 }

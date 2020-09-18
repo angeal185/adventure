@@ -10,6 +10,9 @@ const tpl = {
   compas(){
     return x('div', {id: 'compas'})
   },
+  clock(){
+    return x('div', {id: 'clock'}, '00:00')
+  },
   contact(){
     return x('div', {id: 'contact'},
       x('div'),x('div')
@@ -124,6 +127,9 @@ const tpl = {
     })
 
     return mdl;
+  },
+  deathMask(){
+    return x('div', {id: 'death-mask'})
   }
 }
 

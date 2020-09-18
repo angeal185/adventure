@@ -26,11 +26,12 @@ const app = {
     counter = tpl.counter(),
     container = tpl.container(),
     blockarr = utils.blockImg(),
-    currentBlock = tpl.currentBlock(blockarr);
+    currentBlock = tpl.currentBlock(blockarr),
+    clock = tpl.clock();
 
-    utils.buildBody(utils,currentBlock,container,minmap,contact,counter,compas).addCharacters().buildMap()
+    utils.buildBody(utils,currentBlock,container,minmap,contact,counter,compas,clock).addCharacters().buildMap()
 
-    events(contact,counter,minmap,currentBlock,compas).display()
+    events(contact,counter,minmap,currentBlock,compas,clock).display()
 
   }
 }

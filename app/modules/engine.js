@@ -41,7 +41,7 @@ function Game(opts) {
 
   this.playerHeight = opts.playerHeight;
   this.meshType = opts.meshType;
-  this.mesher = opts.mesher || voxel.meshers.culled
+  this.mesher = voxel.meshers.culled
   this.materialType = opts.materialType || THREE.MeshLambertMaterial
   this.materialParams = opts.materialParams || {}
   this.items = []
