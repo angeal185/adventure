@@ -8,9 +8,8 @@ body {
   overflow: hidden;
   display: none;
 }
+
 #container {
-  -moz-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
 }
 #crosshair {
@@ -20,6 +19,27 @@ body {
   margin: -16px 0 0 -16px;
   width: 32px;
   height: 32px;
+}
+
+#label-wrap{
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+      z-index: 1;
+}
+#label{
+  min-width: 64px;
+  text-align: center;
+  height: 28px;
+  background: rgba(0,0,0,65%);
+  box-shadow: 0 0 4px black;
+  border-radius: 4px;
+  color: #b5b5b5;
+  padding: 2px 8px;
+  font-size: 16px;
 }
 
 #stats { bottom: 0px; right: 0px; }
@@ -311,4 +331,8 @@ body {
   background: rgba(255, 0, 0, 0.52);
   top: 0;
   left: 0;
+}
+
+.hide{
+  display: none;
 }

@@ -1,0 +1,22 @@
+{
+  "keys":[4,7,9,13],
+  "obj":{
+    "4": {
+      "title": "door"
+    },
+    "7": {
+      "title": "door"
+    },
+    "9": {
+      "title": "portal stone"
+    },
+    "13": {
+      "title": "crate"
+    }
+  },
+  "items": [{
+    "id": 1,
+    "title": "gold",
+    "ico": ""
+  }]
+}

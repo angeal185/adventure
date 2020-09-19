@@ -7,6 +7,11 @@ module.exports = {
   skySpeed: 10000,
   skyDelay: 10000,
   defaults: {
+    asyncChunkGeneration: true,
+    gravity: [0, -0.0000036, 0],
+    friction: 0.3,
+    epilson: 1e-8,
+    terminalVelocity: [0.9, 0.1, 0.9],
     playerSkin: './app/img/skin/hero.png',
     playerHeight: 1.62,
     chunkDistance: 2,
@@ -26,6 +31,9 @@ module.exports = {
     fogDisabled: false,
     fogScale: 600,
     lightsDisabled: false,
+    ambientLight: 0xcccccc,
+    directionalLight: [0x444444, 0.1],
+    lightPosition:  [1, 1, 0.5],
     controls: {
       discreteFire: true,
       speed: 0.0032,
@@ -61,12 +69,12 @@ module.exports = {
       '<control>': 'alt'
     }
   },
-  quick_block: [1,2,3,4,5,6,7,8,9,10,11,12],
+  quick_block: [1,2,3,4,5,6,7,8,9,10,11,12,13],
   arrayType: Uint8Array,
   snow: {
     count: 1000,
     size: 20,
-    speed: 0.1,
+    speed: 0.2,
     drift: 1
   },
   stars: {

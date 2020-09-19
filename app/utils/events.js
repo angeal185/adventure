@@ -1,9 +1,14 @@
 const utils = require('./'),
 fly = require('../modules/fly'),
 highlight = require('../modules/highlight'),
-{snow, stars} = require('../modules/sky');
+{snow, stars} = require('../modules/sky'),
+config = require('../data/config'),
+items = require('../data/items');
 
-function events(contact,counter,minmap,currentBlock,compas,clock){
+//dev
+const dev = require('./dev')
+
+function events(label,contact,counter,minmap,currentBlock,compas,clock){
 
   document.addEventListener('pointerlockchange', function(event){
     if(document.pointerLockElement){
@@ -20,16 +25,32 @@ function events(contact,counter,minmap,currentBlock,compas,clock){
     color: 0xff0000
   }),
   blockPosPlace,
-  blockPosErase;
+  blockPosErase,
+  sel;
 
   hl.on('highlight', function(voxelPos) {
-    //console.log(voxelPos)
+
     //dev.addNpc(voxelPos)
-    blockPosErase = voxelPos
+    blockPosErase = voxelPos;
+    sel = game.getBlock(voxelPos);
+    if(items.keys.indexOf(sel) !== -1){
+      game.showlbl = true;
+      label.classList.remove('hide');
+      label.textContent = items.obj[sel.toString()].title;
+    }
+
   })
 
   hl.on('remove', function(voxelPos) {
     blockPosErase = null;
+    sel = null;
+
+    if(game.showlbl){
+      label.classList.add('hide');
+      label.textContent = '';
+      game.showlbl = false;
+    }
+
   })
 
   hl.on('highlight-adjacent', function(voxelPos) {
@@ -45,21 +66,32 @@ function events(contact,counter,minmap,currentBlock,compas,clock){
 
   game.on('fire', function(target, state, xr) {
 
-    var position = blockPosPlace;
+    let position = blockPosPlace;
 
     if (position) {
-      if(opts.materials[user.selectedBlock - 1] === 'water_overlay'){
+      let item = user.selectedBlock;
+
+      if(config.defaults.materials[user.selectedBlock - 1] === 'water_overlay'){
         return utils.waterBlock(game, position);
       }
       xframe[user.selectedBlock].push(position)
-      game.createBlock(position, user.selectedBlock)
+      game.createBlock(position, item)
+      if(item === 13){
+        dev.addCrete([position, 0])
+      }
 
 
     } else {
       //console.log(target)
 
-      position = blockPosErase
-      console.log(game.getBlock(blockPosErase))
+      position = blockPosErase;
+
+      if(sel === 13){
+        console.log('crete')
+      }
+
+      //return console.log(game.getBlock(blockPosErase))
+
       if (position && position[1] > -10) {
         game.setBlock(position, 0)
 

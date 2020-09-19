@@ -18,6 +18,9 @@ const tpl = {
       x('div'),x('div')
     )
   },
+  label(){
+    return x('div', {id: 'label', class:'hide'})
+  },
   progress(){
     global.ele.life = x('div', {class: 'progress sparkle'},
       x('div', {class:'progress-text'}),
@@ -38,7 +41,7 @@ const tpl = {
     )
 
   },
-  container(){
+  crosshair(){
     return x('app-main',
       x('div', {id: 'crosshair'},
         x('img', {src: './app/img/crosshair.png'})

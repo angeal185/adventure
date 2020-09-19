@@ -980,6 +980,440 @@ characters = [{
   position: [-7,2,-17],
   action: [[-7,1,-17],[-7,1,-18],[-8,1,-17],[-8,1,-18]],
   rt: 90
+},{
+  id: 71,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:71'
+  }],
+  position: [8,2,24],
+  action: [[8,1,24],[8,1,23],[7,1,24],[7,1,23]],
+  rt: -90
+},{
+  id: 72,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:72'
+  }],
+  position: [16,2,24],
+  action: [[16,1,24],[16,1,23],[15,1,24],[15,1,23]],
+  rt: null
+},{
+  id: 73,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:73'
+  }],
+  position: [3,2,24],
+  action: [[3,1,24],[3,1,23],[2,1,24],[2,1,23]],
+  rt: null
+},{
+  id: 74,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:74'
+  }],
+  position: [-4,2,30],
+  action: [[-4,1,30],[-4,1,29],[-5,1,30],[-5,1,29]],
+  rt: null
+},{
+  id: 75,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:75'
+  }],
+  position: [-9,2,30],
+  action: [[-9,1,30],[-9,1,29],[-10,1,30],[-10,1,29]],
+  rt: null
+},{
+  id: 76,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:76'
+  }],
+  position: [-4,2,8],
+  action: [[-4,1,8],[-4,1,7],[-5,1,8],[-5,1,7]],
+  rt: 180
+},{
+  id: 77,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:77'
+  }],
+  position: [-9,2,8],
+  action: [[-9,1,8],[-9,1,7],[-10,1,8],[-10,1,7]],
+  rt: 180
+},{
+  id: 78,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:78'
+  }],
+  position: [17,2,12],
+  action: [[17,1,12],[17,1,11],[16,1,12],[16,1,11]],
+  rt: 180
+},{
+  id: 79,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:79'
+  }],
+  position: [21,2,12],
+  action: [[21,1,12],[21,1,11],[20,1,12],[20,1,11]],
+  rt: 180
+},{
+  id: 80,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:80'
+  }],
+  position: [29,2,12],
+  action: [[29,1,12],[29,1,11],[28,1,12],[28,1,11]],
+  rt: 180
+},{
+  id: 81,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:81'
+  }],
+  position: [36,2,8],
+  action: [[36,1,8],[36,1,7],[35,1,8],[35,1,7]],
+  rt: 180
+},{
+  id: 82,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:82'
+  }],
+  position: [36,2,-1],
+  action: [[36,1,-1],[36,1,-2],[35,1,-1],[35,1,-2]],
+  rt: 180
+},{
+  id: 83,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:83'
+  }],
+  position: [36,2,12],
+  action: [[36,1,12],[36,1,11],[35,1,12],[35,1,11]],
+  rt: 180
+},{
+  id: 84,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:84'
+  }],
+  position: [34,2,23],
+  action: [[34,1,23],[34,1,22],[33,1,23],[33,1,22]],
+  rt: -90
+},{
+  id: 85,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:85'
+  }],
+  position: [45,2,15],
+  action: [[45,1,15],[45,1,14],[44,1,15],[44,1,14]],
+  rt: -90
+},{
+  id: 86,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:86'
+  }],
+  position: [45,2,9],
+  action: [[45,1,9],[45,1,8],[44,1,9],[44,1,8]],
+  rt: -90
+},{
+  id: 87,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:87'
+  }],
+  position: [45,2,5],
+  action: [[45,1,5],[45,1,4],[44,1,5],[44,1,4]],
+  rt: -90
+},{
+  id: 88,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:88'
+  }],
+  position: [45,2,0],
+  action: [[45,1,0],[45,1,-1],[44,1,0],[44,1,-1]],
+  rt: -90
+},{
+  id: 89,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:89'
+  }],
+  position: [45,2,-9],
+  action: [[45,1,-9],[45,1,-10],[44,1,-9],[44,1,-10]],
+  rt: 180
+},{
+  id: 90,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:90'
+  }],
+  position: [49,2,-9],
+  action: [[49,1,-9],[49,1,-10],[48,1,-9],[48,1,-10]],
+  rt: 180
+},{
+  id: 91,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:91'
+  }],
+  position: [30,2,24],
+  action: [[30,1,24],[30,1,23],[29,1,24],[29,1,23]],
+  rt: null
+},{
+  id: 92,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:92'
+  }],
+  position: [27,2,24],
+  action: [[27,1,24],[27,1,23],[26,1,24],[26,1,23]],
+  rt: null
+},{
+  id: 93,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:93'
+  }],
+  position: [3,2,12],
+  action: [[3,1,12],[3,1,11],[2,1,12],[2,1,11]],
+  rt: 180
+},{
+  id: 94,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:94'
+  }],
+  position: [21,2,24],
+  action: [[21,1,24],[21,1,23],[20,1,24],[20,1,23]],
+  rt: null
+},{
+  id: 95,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:95'
+  }],
+  position: [18,2,-5],
+  action: [[18,1,-5],[18,1,-6],[17,1,-5],[17,1,-6]],
+  rt: null
+},{
+  id: 96,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:96'
+  }],
+  position: [14,2,-5],
+  action: [[14,1,-5],[14,1,-6],[13,1,-5],[13,1,-6]],
+  rt: null
+},{
+  id: 97,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:97'
+  }],
+  position: [3,2,-5],
+  action: [[3,1,-5],[3,1,-6],[2,1,-5],[2,1,-6]],
+  rt: null
+},{
+  id: 98,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:98'
+  }],
+  position: [7,2,-5],
+  action: [[7,1,-5],[7,1,-6],[6,1,-5],[6,1,-6]],
+  rt: null
+},{
+  id: 99,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:99'
+  }],
+  position: [29,2,-5],
+  action: [[29,1,-5],[29,1,-6],[28,1,-5],[28,1,-6]],
+  rt: null
+},{
+  id: 100,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:100'
+  }],
+  position: [25,2,-5],
+  action: [[25,1,-5],[25,1,-6],[24,1,-5],[24,1,-6]],
+  rt: null
+},{
+  id: 101,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:101'
+  }],
+  position: [36,2,-6],
+  action: [[36,1,-6],[36,1,-7],[35,1,-6],[35,1,-7]],
+  rt: -90
 }]
 
 module.exports = characters;

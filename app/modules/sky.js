@@ -1,5 +1,11 @@
 const config = require('../data/config');
 
+
+const flake = new game.THREE.ParticleBasicMaterial({
+  color: 0x9999ff,
+  size: 1
+});
+
 function Snow() {
   var self = this;
   if (!(this instanceof Snow)){
@@ -7,10 +13,10 @@ function Snow() {
   }
 
   this.game = game;
-  this.speed = config.snow.speed || 0.1;
-  this.drift = config.snow.drift || 1;
+  this.speed = config.snow.speed
+  this.drift = config.snow.drift
   this.particles = [];
-  this.material = new game.THREE.ParticleBasicMaterial({color: 0xffffff, size: 1})
+  this.material = flake;
   if (config.snow.count != null || config.snow.size != null || this.material != null) {
     this.game.scene.add(this.add(
       config.snow.count || null, config.snow.size || null, this.material || null
@@ -22,10 +28,7 @@ Snow.prototype.add = function(count, size, material) {
   var game = this.game;
   count = count || 1000;
   size  = size  || 20;
-  material = material || new game.THREE.ParticleBasicMaterial({
-    color: 0x9999ff,
-    size: 1
-  });
+  material = flake
 
   var half = size / 2;
 
@@ -94,7 +97,7 @@ function Stars() {
 
   this.game = game;
   this.particles = [];
-  this.material = new game.THREE.ParticleBasicMaterial({color: 0xffffff, size: 1})
+  this.material = flake
   if (config.stars.count != null || config.stars.size != null || this.material != null) {
     this.game.scene.add(this.add(
       config.stars.count || null, config.stars.size || null, this.material || null
@@ -106,10 +109,7 @@ Stars.prototype.add = function(count, size, material) {
   var game = this.game;
   count = count || 10000;
   size  = size  || 0.1;
-  material = material || new game.THREE.ParticleBasicMaterial({
-    color: 0xffffff,
-    size: 1
-  });
+  material = flake
 
   var half = size / 2;
 
@@ -156,7 +156,7 @@ Stars.prototype.tick = function() {
 
       particle.geometry.verticesNeedUpdate = true;
     });
-  
+
 };
 
 function rand(min, max) { return Math.random() * (max - min) + min; }

@@ -57,7 +57,6 @@ function Highlighter(game, opts) {
   this.selectEnd
 }
 
-utils.inherits(Highlighter, events.EventEmitter)
 
 Highlighter.prototype.highlight = function () {
 
@@ -160,5 +159,7 @@ Highlighter.prototype.highlight = function () {
   }
   if (!this.animate) this.mesh.position.set(this.targetPosition[0], this.targetPosition[1], this.targetPosition[2])
 }
+
+utils.inherits(Highlighter, events.EventEmitter)
 
 module.exports = Highlighter

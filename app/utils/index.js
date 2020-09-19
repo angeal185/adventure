@@ -47,7 +47,7 @@ const utils = {
       },1000)
     },3000)
   },
-  buildBody(utils,currentBlock,container,minmap,contact,counter,compas, clock){
+  buildBody(utils,currentBlock,crosshair,label,minmap,contact,counter,compas, clock){
     document.body.append(
       x('app-menu', {id: 'app-menu'},
         currentBlock,
@@ -68,8 +68,9 @@ const utils = {
           return div;
         }
       ),
-      container,
+      crosshair,
       x('app-sub',
+        x('div', {id: 'label-wrap'},label),
         clock,
         compas,
         minmap,
@@ -102,9 +103,29 @@ const utils = {
             x('img', {
               src: './app/img/ico/home.png',
               class:'ico-img',
-              title: 'Home',
+              title: 'Home (30 mana)',
               onclick(){
                 utils.toHome();
+              }
+            })
+          ),
+          x('div', {class:'ico-item'},
+            x('img', {
+              src: './app/img/ico/levitate.png',
+              class:'ico-img',
+              title: 'Levitate',
+              onclick(){
+                utils.levitate(30000)
+              }
+            })
+          ),
+          x('div', {class:'ico-item'},
+            x('img', {
+              src: './app/img/ico/heal.png',
+              class:'ico-img',
+              title: 'Heal (50 mana)',
+              onclick(){
+                utils.heal()
               }
             })
           )
@@ -166,7 +187,10 @@ const utils = {
     return this;
   },
   dispatch(evt, data){
-    window.dispatchEvent(new CustomEvent(evt, {detail: data}))
+    if(data){
+      return window.dispatchEvent(new CustomEvent(evt, {detail: data}))
+    }
+    window.dispatchEvent(new Event(evt))
   },
   walk(target){
     walk.render(target.playerSkin);
@@ -195,6 +219,7 @@ const utils = {
     };
   },
   blockImg(sel){
+
     let arr = [],
     opts = config.defaults;
     if(typeof sel === 'undefined'){
@@ -202,6 +227,7 @@ const utils = {
     } else {
       sel = opts.materials[sel - 1];
     }
+
     if(Array.isArray(sel)){
       sel = sel[2];
     }
@@ -459,6 +485,34 @@ const utils = {
       },1000)
     },3000)
   },
+  levitate(i){
+    if(user.mana < 50){
+      return utils.dispatch('contact', {
+        name: 'mana',
+        msg: 'insufficient mana'
+      });
+    }
+    utils.vitalize({item: 'mana', ammount: 50, add: false})
+    game.flyer.startFlying();
+    setTimeout(function(){
+      game.flyer.stopFlying();
+      if(avatar.position.y > 20){
+        utils.dead();
+      }
+    },i)
+  },
+  heal(){
+
+    if(user.mana < 50){
+      return utils.dispatch('contact', {
+        name: 'mana',
+        msg: 'insufficient mana'
+      });
+    }
+
+    utils.vitalize({item: 'mana', ammount: 50, add: false})
+    utils.vitalize({item: 'life', ammount: 30, add: true})
+  },
   toHome(){
     if(user.mana < 30){
       return utils.dispatch('contact', {
@@ -606,13 +660,33 @@ const utils = {
   },
   keyup(evt, currentBlock){
 
+    console.log(evt.keyCode)
+
+    if (evt.keyCode === 76){
+      return utils.levitate();
+    }
+
+    if (evt.keyCode === 77){
+      return utils.mark();
+    }
+
+    if (evt.keyCode === 72){
+      return utils.heal();
+    }
+
+    if (evt.keyCode === 82){
+      return utils.recall();
+    }
+
+    if (evt.keyCode === 86){
+      return avatar.toggle();
+    }
+
     if (evt.keyCode === 27){
       utils.unfocus();
     }
 
-    if (evt.keyCode === 82){
-      avatar.toggle();
-    }
+
 
     if (evt.keyCode === 112){
 
@@ -715,7 +789,7 @@ const utils = {
 
     if (evt.keyCode >= 49 && evt.keyCode <= 57){
       user.selectedBlock = parseInt(evt.key)
-      let ttl = utils.blockImg(config.defaults ,config.quick_block[user.selectedBlock - 1]);
+      let ttl = utils.blockImg(config.quick_block[user.selectedBlock - 1]);
       currentBlock.title = ttl[0];
       currentBlock.src = ttl[1];
     }
@@ -901,12 +975,18 @@ const utils = {
   },
   returnDeg(){
     if(pointerlock){
-      let cd = game.THREE.Math.radToDeg(game.controls.target().avatar.rotation.y);
+      let cd = game.THREE.Math.radToDeg(game.controls.target().avatar.rotation.y),
+      isneg = false;
+
       if(cd !== 0){
         if(cd < 0){
           cd = Math.abs(cd);
+          isneg = true;
         }
         cd = Math.floor(cd - (360 * Math.floor(cd / 360)))
+        if(!isneg){
+          cd = (360 - cd);
+        }
       }
       return cd;
     }

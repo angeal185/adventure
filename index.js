@@ -2,9 +2,11 @@ require('./pre');
 
 const config = require('./app/data/config'),
 tpl = require('./app/views/tpl'),
-map = require('./app/data/map'),
 utils = require('./app/utils'),
-events = require('./app/utils/events'),
+events = require('./app/utils/events');
+
+//dev
+const map = require('./app/data/map'),
 dev = require('./app/utils/dev');
 
 
@@ -24,14 +26,15 @@ const app = {
     compas = tpl.compas(),
     contact = tpl.contact(),
     counter = tpl.counter(),
-    container = tpl.container(),
+    crosshair = tpl.crosshair(),
+    label = tpl.label(),
     blockarr = utils.blockImg(),
     currentBlock = tpl.currentBlock(blockarr),
     clock = tpl.clock();
 
-    utils.buildBody(utils,currentBlock,container,minmap,contact,counter,compas,clock).addCharacters().buildMap()
+    utils.buildBody(utils,currentBlock,crosshair,label,minmap,contact,counter,compas,clock).addCharacters().buildMap()
 
-    events(contact,counter,minmap,currentBlock,compas,clock).display()
+    events(label,contact,counter,minmap,currentBlock,compas,clock).display()
 
   }
 }
