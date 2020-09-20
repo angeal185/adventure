@@ -6,11 +6,7 @@ utils = require('./app/utils'),
 events = require('./app/utils/events');
 
 //dev
-const map = require('./app/data/map'),
 dev = require('./app/utils/dev');
-
-
-global.xframe = map;
 
 const app = {
   listen(){

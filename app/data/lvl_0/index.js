@@ -3,7 +3,9 @@ const characters = require('./characters');
 module.exports = {
   characters: characters,
   portals: [
-    [[58,1,-18],[58,-4,-18], ['slums', 'ghetto']]
+    [[-6, 1, -7], [-6, -4, -7], ['trademeet', 'slums']],
+    [[58,1,-18],[58,-4,-18], ['trademeet', 'slums']],
+    [[45, 1, -6],[45,5,-6], ['floor 1', 'floor 2']]
   ],
   doors: [
     [[10,1,12],[11,2,12], null],

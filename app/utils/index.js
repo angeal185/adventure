@@ -113,9 +113,29 @@ const utils = {
             x('img', {
               src: './app/img/ico/levitate.png',
               class:'ico-img',
-              title: 'Levitate',
+              title: 'Levitate (50 mana)',
               onclick(){
                 utils.levitate(30000)
+              }
+            })
+          ),
+          x('div', {class:'ico-item'},
+            x('img', {
+              src: './app/img/ico/open.png',
+              class:'ico-img',
+              title: 'open lock (20 mana)',
+              onclick(){
+                utils.openLock()
+              }
+            })
+          ),
+          x('div', {class:'ico-item'},
+            x('img', {
+              src: './app/img/ico/shadow.png',
+              class:'ico-img',
+              title: 'shadow (30 mana)',
+              onclick(){
+                utils.shadow(30000)
               }
             })
           ),
@@ -179,6 +199,7 @@ const utils = {
     return pointer
   },
   buildMap(){
+    return this;
     for (let i = 0; i < map.length; i++) {
       for (let j = 0; j < map[i].length; j++) {
         game.setBlock(map[i][j], i)
@@ -412,6 +433,7 @@ const utils = {
     return a;
   },
   addCharacters(){
+
     for (let i = 0; i < lvl.characters.length; i++) {
       utils.create_npc(lvl.characters[i])
     }
@@ -485,6 +507,43 @@ const utils = {
       },1000)
     },3000)
   },
+  openLock(){
+    if(user.mana < 20){
+      return utils.dispatch('contact', {
+        name: 'mana',
+        msg: 'insufficient mana'
+      });
+    }
+
+    utils.vitalize({item: 'mana', ammount: 20, add: false})
+
+  },
+  shadow(i){
+    if(user.mana < 30){
+      return utils.dispatch('contact', {
+        name: 'mana',
+        msg: 'insufficient mana'
+      });
+    }
+
+    utils.vitalize({item: 'mana', ammount: 30, add: false})
+
+    if(user.states.shadow){
+      clearTimeout(user.states.shadow)
+    }
+
+    let current = game.scene.fog.color;
+    game.scene.fog.color.set('#333333')
+    game.scene.fog.far = 100;
+
+    user.states.shadow = setTimeout(function(){
+
+      game.scene.fog.far = 600;
+      game.scene.fog.color = current;
+      user.states.shadow = false;
+
+    },i)
+  },
   levitate(i){
     if(user.mana < 50){
       return utils.dispatch('contact', {
@@ -492,10 +551,18 @@ const utils = {
         msg: 'insufficient mana'
       });
     }
-    utils.vitalize({item: 'mana', ammount: 50, add: false})
-    game.flyer.startFlying();
-    setTimeout(function(){
+
+    utils.vitalize({item: 'mana', ammount: 50, add: false});
+
+    if(user.states.levitate){
+      clearTimeout(user.states.levitate)
+    } else {
+      game.flyer.startFlying();
+    }
+
+    user.states.levitate = setTimeout(function(){
       game.flyer.stopFlying();
+      user.states.levitate = false;
       if(avatar.position.y > 20){
         utils.dead();
       }
@@ -660,10 +727,10 @@ const utils = {
   },
   keyup(evt, currentBlock){
 
-    console.log(evt.keyCode)
+    //console.log(evt.keyCode)
 
     if (evt.keyCode === 76){
-      return utils.levitate();
+      return utils.levitate(30000);
     }
 
     if (evt.keyCode === 77){
@@ -689,15 +756,7 @@ const utils = {
 
 
     if (evt.keyCode === 112){
-
-      fs.copyFile('./app/data/map.json', './app/data/map.json.bak', function(err){
-        if(err){return console.error('Failed to backup map data')}
-        fs.writeFile('./app/data/map.json', JSON.stringify(xframe), function(err){
-          if(err){return console.error('Failed to save map data')}
-          console.log('Map data saved')
-        })
-      })
-
+      return game.saveChunks();
     }
 
     if (evt.keyCode === 113){
@@ -781,7 +840,7 @@ const utils = {
 
 
     if (evt.keyCode === 73){
-      window.dispatchEvent(new Event('show-inventory'));
+      utils.dispatch('show-inventory');
       utils.unfocus();
     }
 

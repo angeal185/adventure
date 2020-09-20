@@ -20,7 +20,7 @@ module.exports = {
     removeDistance: 3,
     tickFPS: 16,
     meshType: 'surfaceMesh',
-    generateChunks: true,
+    generateChunks: false,
     texturePath: 'app/img/textures/',
     materials: materials,
     materialFlatColor: false,

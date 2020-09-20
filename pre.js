@@ -25,7 +25,12 @@ global.db = low(adapter);
 global.user = {
   selectedBlock: 1,
   life: 50,
-  mana: 50
+  mana: 50,
+  states: {
+    shadow: false,
+    levitate: false,
+    isDead: false
+  }
 }
 global.isDead = false;
 
@@ -47,7 +52,10 @@ db.defaults({
     gold: 0,
     inventory: [],
     portal:[],
-    stones:[]
+    stones:[],
+    skills:{
+      
+    }
   },
   created: Date.now()
 }).write()

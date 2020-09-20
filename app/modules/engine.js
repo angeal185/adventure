@@ -16,6 +16,7 @@ kb = require('./kb-controls'),
 physical = require('./physical'),
 tic = require('./tic'),
 utils = require('../utils'),
+fs = require('fs'),
 config = require('../data/config');
 
 let opts = config.defaults;
@@ -110,9 +111,11 @@ function Game() {
 
   //this.paused = true
   this.initializeRendering()
+  //fs.writeFileSync('./v', JSON.stringify(this.voxels.chunks))
 
-  for(var chunkIndex in this.voxels.chunks){
-    this.showChunk(this.voxels.chunks[chunkIndex])
+  this.voxels.chunks = JSON.parse(fs.readFileSync('./app/data/lvl_0/chunks.json', 'utf8'))
+  for(var i in this.voxels.chunks){
+    this.showChunk(this.voxels.chunks[i])
   }
 
   setTimeout(function() {
@@ -669,6 +672,12 @@ Game.prototype = {
     }
 
     return emitter
+  },
+  saveChunks(){
+    fs.writeFile('./app/data/lvl_0/chunks.json', JSON.stringify(this.voxels.chunks), function(err,res){
+      if(err){return console.log(err)}
+      console.log('chunks updated')
+    })
   }
 }
 

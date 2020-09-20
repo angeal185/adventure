@@ -3,24 +3,12 @@ events = require('events');
 
 let game;
 
-function Fly(physical, noKeyEvents) {
+function Fly(physical) {
   this.flySpeed = 0.8
   this.physical = physical
-  if (!noKeyEvents){
-    this.bindKeyEvents();
-  }
 }
 
 Fly.prototype = {
-  bindKeyEvents(el) {
-    console.log(el)
-    if (!el) el = window
-    var self = this
-    var counter = 0
-    var spaceUpAfterFirstDown = true
-    var first = Date.now()
-
-  },
   startFlying() {
     var self = this
     this.flying = true

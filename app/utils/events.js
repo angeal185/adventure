@@ -19,7 +19,12 @@ function events(label,contact,counter,minmap,currentBlock,compas,clock){
   })
 
   let target = game.controls.target();
-  game.flyer = fly(game)(target);
+  game.flyer = fly(game)(target),
+  worker = new Worker('worker.js', {
+    type: 'module'
+  });
+
+  //worker.postMessage([document]);
 
   let hl = game.highlighter = highlight(game, {
     color: 0xff0000
@@ -31,6 +36,7 @@ function events(label,contact,counter,minmap,currentBlock,compas,clock){
   hl.on('highlight', function(voxelPos) {
 
     //dev.addNpc(voxelPos)
+    console.log(voxelPos)
     blockPosErase = voxelPos;
     sel = game.getBlock(voxelPos);
     if(items.keys.indexOf(sel) !== -1){
@@ -74,7 +80,7 @@ function events(label,contact,counter,minmap,currentBlock,compas,clock){
       if(config.defaults.materials[user.selectedBlock - 1] === 'water_overlay'){
         return utils.waterBlock(game, position);
       }
-      xframe[user.selectedBlock].push(position)
+
       game.createBlock(position, item)
       if(item === 13){
         dev.addCrete([position, 0])
@@ -95,15 +101,8 @@ function events(label,contact,counter,minmap,currentBlock,compas,clock){
       if (position && position[1] > -10) {
         game.setBlock(position, 0)
 
-        for (let i = 0; i < xframe.length; i++) {
-          for (let j = 0; j < xframe[i].length; j++) {
-            if(JSON.stringify(xframe[i][j]) === JSON.stringify(position)){
-              xframe[i].splice(j,1);
-            }
-          }
-        }
-
       }
+
     }
   })
 
