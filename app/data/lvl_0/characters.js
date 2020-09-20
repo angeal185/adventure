@@ -1414,6 +1414,48 @@ characters = [{
   position: [36,2,-6],
   action: [[36,1,-6],[36,1,-7],[35,1,-6],[35,1,-7]],
   rt: -90
+},{
+  id: 102,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:102'
+  }],
+  position: [45,6,-1],
+  action: [[45,5,-1],[45,5,-2],[44,5,-1],[44,5,-2]],
+  rt: 180
+},{
+  id: 103,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:103'
+  }],
+  position: [45,6,8],
+  action: [[45,5,8],[45,5,7],[44,5,8],[44,5,7]],
+  rt: -90
+},{
+  id: 104,
+  idx: 0,
+  name: 'villager',
+  skin: './app/img/skin/villager_01.png',
+  speech(){
+    return utils.rndArr(dialogue.greetings);
+  },
+  dialogue: [{
+    body: 'id:104'
+  }],
+  position: [45,6,13],
+  action: [[45,5,13],[45,5,12],[44,5,13],[44,5,12]],
+  rt: -90
 }]
 
 module.exports = characters;

@@ -35,8 +35,8 @@ function events(label,contact,counter,minmap,currentBlock,compas,clock){
 
   hl.on('highlight', function(voxelPos) {
 
-    //dev.addNpc(voxelPos)
-    console.log(voxelPos)
+    dev.addNpc(voxelPos)
+    //console.log(voxelPos)
     blockPosErase = voxelPos;
     sel = game.getBlock(voxelPos);
     if(items.keys.indexOf(sel) !== -1){
