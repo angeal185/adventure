@@ -3,10 +3,12 @@ fly = require('../modules/fly'),
 highlight = require('../modules/highlight'),
 {snow, stars} = require('../modules/sky'),
 config = require('../data/config'),
-items = require('../data/items');
+items = require('../data/items'),
+sound = require('../data/sound');
 
 //dev
 const dev = require('./dev')
+
 
 function events(label,contact,counter,minmap,currentBlock,compas,clock){
 
@@ -127,6 +129,37 @@ function events(label,contact,counter,minmap,currentBlock,compas,clock){
     evt = evt.detail;
     utils.toast(contact, evt.name, evt.msg);
   }, false);
+
+
+  global.ele.preload = new Audio();
+  ele.preload.onload = function(evt){
+    console.log(evt.target.src + ' preloaded')
+  }
+  ele.preload.src = sound.fx['cast'];
+
+  global.ele.music = new Audio();
+  global.ele.fx = new Audio();
+
+  window.addEventListener('sound', function (evt) {
+    evt = evt.detail;
+    ele.fx.src = sound.fx[evt];
+    ele.fx.play()
+
+  }, false);
+
+  window.addEventListener('music', function (evt) {
+    evt = evt.detail;
+
+    if(typeof game.music_idx === 'undefined' || game.music_idx > 6){
+      game.music_idx = 0
+    }
+
+
+  }, false);
+
+
+
+
 
   window.addEventListener('clock', function (evt) {
     evt = evt.detail;

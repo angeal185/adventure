@@ -526,6 +526,7 @@ const utils = {
       });
     }
 
+    utils.dispatch('sound', 'cast');
     utils.vitalize({item: 'mana', ammount: 30, add: false})
 
     if(user.states.shadow){
@@ -552,6 +553,7 @@ const utils = {
       });
     }
 
+    utils.dispatch('sound', 'cast');
     utils.vitalize({item: 'mana', ammount: 50, add: false});
 
     if(user.states.levitate){
@@ -576,7 +578,7 @@ const utils = {
         msg: 'insufficient mana'
       });
     }
-
+    utils.dispatch('sound', 'cast');
     utils.vitalize({item: 'mana', ammount: 50, add: false})
     utils.vitalize({item: 'life', ammount: 30, add: true})
   },

@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+  z-index: 30;
+  width: 10px
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #282c34;
+  border-left: 1px solid #000
+}
+
+::-webkit-scrollbar-track {
+  background: #000
+}
+
+.card, .btn{
+  border-radius: 0;
+}

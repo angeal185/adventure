@@ -1,0 +1,39 @@
+{
+  "app": {
+    "dev": true,
+    "clusters": 1,
+    "browserWindow": {
+      "width": 800,
+      "height": 600,
+      "worldSafeExecuteJavaScript": true,
+      "webPreferences": {
+        "nodeIntegration": true,
+        "nodeIntegrationInWorker": true
+      }
+    }
+  },
+  "server": {
+    "port": 8080,
+    "url": "http://localhost:",
+    "index": "<!doctype html><html><head><link rel='stylesheet' href='/app/css/bootstrap.min.css'><link rel='stylesheet' href='/app/css/main.css'></head><body><script src='/index.js' defer></script></body></html>",
+    "mime": {
+      "css": "text/css",
+      "js": "application/javascript",
+      "json": "application/json",
+      "html": "text/html",
+      "mp3": "audio/mpeg",
+      "wav": "audio/wav",
+      "png": "image/png",
+      "woff2": "font/woff2"
+    },
+    "headers": [{
+      "Content-Type": "text/html",
+      "Content-Length": 198,
+      "Content-Security-Policy": "default-src 'self'",
+      "Server": "anon",
+      "X-Content-Type-Options":"nosniff",
+      "X-Frame-Options": "DENY",
+      "X-XSS-Protection": "1; mode=block"
+    }]
+  }
+}

@@ -1,12 +1,14 @@
 {
   "name": "adventure",
   "version": "1.0.0",
-  "description": "electron rpg",
+  "description": "electron webgl rpg builder and game",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "admin": "electron ./admin.js"
   },
   "dependencies": {
+    "electron": "^10.1.2",
     "lowdb": "^1.0.0"
   },
   "keywords": [],

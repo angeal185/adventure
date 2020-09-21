@@ -1,0 +1,6 @@
+{
+  "characters": {
+    "frame": "const utils = require('../../utils'),\ndialogue = require('../dialogue'),\ncharacters = [{{items}}];\n\nmodule.exports = characters;",
+    "item":"{\n  id: {{id}},\n  name: '{{name}}',\n  skin: './app/img/skin/villager_01.png',\n  speech(){\n    return utils.rndArr(dialogue.greetings);\n  },\n  dialogue: [{body: 'id:{{id}}'}],\n  position: {{position}},\n  action: {{action}},\n  rt: {{rt}},\n  g: {{gold}},\n  idx: 0\n}, "
+  }
+}
